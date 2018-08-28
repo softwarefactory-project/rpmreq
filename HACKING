@@ -1,0 +1,20 @@
+# SOURCE
+│
+└── rpmreq
+    ├── __init__.py   - keep this clean, put stuff into submodules
+    └── todo.py       - TODO: UPDATE THIS
+
+
+# TESTS
+│
+├── tests
+└── tox.ini  - use `tox` to run tests
+
+
+# PACKAGING
+│
+├── setup.cfg              - declarative python packaging config
+├── setup.py               - we're using pbr, so look into setup.cfg
+├── requirements.txt
+├── test-requirements.txt
+└── LICENSE
