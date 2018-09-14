@@ -1,0 +1,33 @@
+---
+- job:
+    name: rpmreq-base
+    parent: base
+    nodeset:
+      nodes:
+        - name: test-node
+          label: f27-oci
+
+- job:
+    name: rpmreq-unit
+    parent: rpmreq-base
+    description: rpmreq unit tests
+    run: playbooks/unit.yaml
+
+- job:
+    name: rpmreq-codestyle
+    parent: rpmreq-base
+    description: rpmreq code style checks
+    run: playbooks/codestyle.yaml
+
+- project:
+    check:
+      jobs:
+        - rpmreq-unit
+        - rpmreq-codestyle
+    gate:
+      jobs:
+        - rpmreq-unit
+        - rpmreq-codestyle
+    release:
+      jobs:
+        - upload-pypi
