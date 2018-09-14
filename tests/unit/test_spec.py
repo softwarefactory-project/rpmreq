@@ -6,7 +6,7 @@ import tests.test_common as common
 
 def test_build_requires_basic(capsys):
     spec_path = common.get_test_spec_path('foo')
-    rpmreq('build-requires', spec_path)
+    rpmreq('build-requires', '--no-query', spec_path)
     cap = capsys.readouterr()
     exp = ("foo BuildRequires:\n"
            "  PyYAML\n"

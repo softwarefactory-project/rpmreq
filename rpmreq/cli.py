@@ -1,4 +1,5 @@
 import sys
+
 import logging
 
 from . import __version__
@@ -31,6 +32,8 @@ def main():
     logging.basicConfig(level=logging.DEBUG,
                         # format="%(message)s",
                         stream=sys.stdout)
+    sh_log = logging.getLogger('sh')
+    sh_log.setLevel(logging.WARN)
     cargs = sys.argv[1:]
     sys.exit(rpmreq(*cargs))
 
