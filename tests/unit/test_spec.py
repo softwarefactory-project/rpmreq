@@ -4,7 +4,7 @@ import pytest
 import tests.test_common as common
 
 
-def test_build_requires_basic(capsys):
+def test_build_requires_base(capsys):
     spec_path = common.get_test_spec_path('foo')
     rpmreq('build-requires', '--no-query', spec_path)
     cap = capsys.readouterr()
@@ -23,4 +23,14 @@ def test_build_requires_basic(capsys):
            "  python3-devel\n"
            "  python3-pbr\n"
            "  python3-setuptools\n")
+    assert cap.out == exp
+
+
+def test_build_requires_macros_basic(capsys):
+    spec_path = common.get_test_spec_path('macros-basic')
+    rpmreq('build-requires', '--no-query', spec_path)
+    cap = capsys.readouterr()
+    exp = ("macros-basic BuildRequires:\n"
+           "  build-macros\n"
+           "  git\n")
     assert cap.out == exp

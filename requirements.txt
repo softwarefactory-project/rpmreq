@@ -1,4 +1,4 @@
 pbr>=0.5.6
 docopt
-python-rpm-spec
+python-rpm-spec==0.7
 sh

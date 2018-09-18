@@ -73,8 +73,12 @@ def build_requires(specs, repos=None, query_versions=True):
             pbrs = getattr(pkg, 'build_requires', [])
             if pbrs:
                 brs += pbrs
-        print("%s BuildRequires:" % spec.name)
-        brs = sorted(brs)
+
+        def _replace_macros(s):
+            return replace_macros(s, spec=spec)
+
+        brs = sorted(map(_replace_macros, brs))
+        print("%s BuildRequires:" % _replace_macros(spec.name))
         if query_versions:
             for br in brs:
                 version = query.last_version(br, repos=repos)
