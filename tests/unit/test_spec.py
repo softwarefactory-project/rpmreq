@@ -1,36 +1,28 @@
-from rpmreq.cli import rpmreq
-import pytest
+import rpmreq.cli
+import rpmreq.spec
+from pyrpm.spec import Spec
 
 import tests.test_common as common
 
 
-def test_build_requires_base(capsys):
+def test_spec_build_requires():
     spec_path = common.get_test_spec_path('foo')
-    rpmreq('build-requires', '--no-query', spec_path)
-    cap = capsys.readouterr()
-    exp = ("foo BuildRequires:\n"
-           "  PyYAML\n"
-           "  asciidoc >= 0.1\n"
-           "  bar == 1.2.3\n"
-           "  git\n"
-           "  python\n"
-           "  python-pbr\n"
-           "  python-setuptools\n"
-           "  python2-devel\n"
-           "  python2-macro-disabled-breq\n"
-           "  python2-macro-enabled-breq\n"
-           "  python3-PyYAML\n"
-           "  python3-devel\n"
-           "  python3-pbr\n"
-           "  python3-setuptools\n")
-    assert cap.out == exp
-
-
-def test_build_requires_macros_basic(capsys):
-    spec_path = common.get_test_spec_path('macros-basic')
-    rpmreq('build-requires', '--no-query', spec_path)
-    cap = capsys.readouterr()
-    exp = ("macros-basic BuildRequires:\n"
-           "  build-macros\n"
-           "  git\n")
-    assert cap.out == exp
+    spec = Spec.from_file(spec_path)
+    brs = map(str, rpmreq.spec.build_requires(spec))
+    exp = [
+        "PyYAML",
+        "asciidoc >= 0.1",
+        "bar == 1.2.3",
+        "git",
+        "python",
+        "python-pbr",
+        "python-setuptools",
+        "python2-devel",
+        "python2-macro-disabled-breq",
+        "python2-macro-enabled-breq",
+        "python3-PyYAML",
+        "python3-devel",
+        "python3-pbr",
+        "python3-setuptools",
+    ]
+    assert sorted(brs) == exp
