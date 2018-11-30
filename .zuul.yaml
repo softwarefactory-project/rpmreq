@@ -3,10 +3,7 @@
     name: rpmreq-base
     parent: tox
     abstract: true
-    nodeset:
-      nodes:
-        - name: test-node
-          label: f27-oci
+    nodeset: fedora-latest-runc
 
 - job:
     name: rpmreq-unit
