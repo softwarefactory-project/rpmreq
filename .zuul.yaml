@@ -1,7 +1,8 @@
 ---
 - job:
     name: rpmreq-base
-    parent: base
+    parent: tox
+    abstract: true
     nodeset:
       nodes:
         - name: test-node
@@ -11,13 +12,15 @@
     name: rpmreq-unit
     parent: rpmreq-base
     description: rpmreq unit tests
-    run: playbooks/unit.yaml
+    vars:
+      tox_envlist: unit
 
 - job:
     name: rpmreq-codestyle
     parent: rpmreq-base
     description: rpmreq code style checks
-    run: playbooks/codestyle.yaml
+    vars:
+      tox_envlist: codestyle
 
 - project:
     check:
