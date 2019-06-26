@@ -1,5 +1,6 @@
 pbr>=0.5.6
 docopt
-networkx
+# last python 2 version
+networkx==2.2
 python-rpm-spec==0.7
 sh
