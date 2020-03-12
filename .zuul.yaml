@@ -3,7 +3,7 @@
     name: rpmreq-base
     parent: tox
     abstract: true
-    nodeset: fedora-latest-runc
+    nodeset: fedora-latest-pod
 
 - job:
     name: rpmreq-unit
